@@ -1,15 +1,90 @@
-<<html>
-<style>
-body{
-background-image:URL(kruk.jpg);
-background-size:cover;
+<<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    body {
+      background-image: url("kruk.jpg");
+      background-size: cover;
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+      overflow-y: auto;
+    }
+
+    h1 {
+      padding: 50px;
+      margin: auto;
+      color: red;
+      font-size: 56px;
+      text-align: center;
+    }
+
+    /* Container for the YouTube video */
+    #yt-bg {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100vw;
+      height: 250px; /* Adjust height to your liking */
+      opacity: 0;
+      pointer-events: none;  /* Prevents it from blocking clicks */
+      transition: opacity 5s ease;
+      z-index: -1;
+    }
+
+    #yt-bg iframe {
+      width: 100%;
+      height: 100%;
+    }
+  </style>
+</head>
+<body>
+
+<h1>Fuck you whigga</h1>
+
+<div id="yt-bg">
+  <iframe
+    id="ytplayer"
+    src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&controls=0&showinfo=0&mute=1&loop=1&playlist=dQw4w9WgXcQ"
+    frameborder="0"
+    allow="autoplay; fullscreen"
+    allowfullscreen>
+  </iframe>
+</div>
+
+<script>
+// Load the YouTube IFrame API
+const tag = document.createElement('script');
+tag.src = "https://www.youtube.com/iframe_api";
+document.body.appendChild(tag);
+
+let player;
+
+function onYouTubeIframeAPIReady() {
+  player = new YT.Player('ytplayer', {
+    events: {
+      'onReady': onPlayerReady
+    }
+  });
 }
-h1{
-padding:50px;
-margin:auto;
+
+function onPlayerReady(event) {
+  // Start muted, fade in video + audio after 5s
+  setTimeout(() => {
+    document.getElementById('yt-bg').style.opacity = "0.9"; // fade in
+
+    let vol = 0;
+    const fadeAudio = setInterval(() => {
+      if (vol < 100) {
+        vol += 2;
+        player.setVolume(vol);
+      } else {
+        clearInterval(fadeAudio);
+      }
+    }, 200);
+  }, 5000);
 }
-</style>
- <body>
-<h1 style="color:red;font-size:56px;"text-align:center;><bold>FUCK YOU NIGGA</bold></h1>
+</script>
+
 </body>
 </html>
